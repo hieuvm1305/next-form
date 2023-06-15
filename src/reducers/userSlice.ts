@@ -1,12 +1,19 @@
-'use client'
+"use client";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "@/store/store";
 interface UserInfo {
   id: number;
+  last_login: string | null;
+  username: string;
   email: string;
-  fullname: string;
-  address?: string;
-  age?: string;
+  phonenumber: string;
+  is_user: boolean;
+  is_owner: boolean;
+  is_superuser: boolean;
+  is_staff: boolean;
+  is_verified: boolean;
+  is_deleted: boolean;
+  verified_at?: string;
 }
 
 interface userState {
@@ -28,5 +35,5 @@ export const userSlice = createSlice({
   },
 });
 export const { setUserInfo, clearUserInfo } = userSlice.actions;
-export const getUserInfo = (state:RootState) => state.user.userInfo;
+export const getUserInfo = (state: RootState) => state.user.userInfo;
 export default userSlice.reducer;

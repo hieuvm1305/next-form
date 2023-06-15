@@ -12,15 +12,20 @@
     "@emotion/react": "^11.11.0",
     "@emotion/styled": "^11.11.0",
     "@hookform/resolvers": "^3.1.0",
+    "@mui/icons-material": "^5.11.16",
     "@mui/material": "^5.13.1",
+    "@react-oauth/google": "^0.11.0",
     "@reduxjs/toolkit": "^1.9.5",
     "@types/node": "20.1.7",
     "@types/react": "18.2.6",
     "@types/react-dom": "18.2.4",
     "autoprefixer": "10.4.14",
     "axios": "^1.4.0",
+    "dotenv": "^16.1.4",
     "eslint": "8.40.0",
     "eslint-config-next": "13.4.2",
+    "js-cookie": "^3.0.5",
+    "jwt-decode": "^3.1.2",
     "next": "13.4.2",
     "postcss": "8.4.23",
     "react": "18.2.0",
@@ -31,5 +36,8 @@
     "tailwindcss": "3.3.2",
     "typescript": "5.0.4",
     "yup": "^1.1.1"
+  },
+  "devDependencies": {
+    "@types/js-cookie": "^3.0.3"
   }
 }

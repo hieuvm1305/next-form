@@ -11,7 +11,12 @@ module.exports = {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+        'banner' : "url('/assets/banner-bg.png')",
+
       },
+      width :{
+        '6.5/10': '65%',
+      }
     },
   },
   plugins: [],
