@@ -32,7 +32,7 @@ function UserRegister() {
       .required("Confirm Password is required"),
     phonenumber: yup.string().min(8, "phonenumber is least 8 digits"),
   });
-  type FormValue = yup.InferType<typeof schema>
+
   const {
     register,
     handleSubmit,

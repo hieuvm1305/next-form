@@ -26,7 +26,7 @@ function Index() {
       <div className="bg-banner py-[90px]">
         <div className="container w-[70%] lg:w-10/12 mx-auto">
           <h1 className="text-white font-semibold text-5xl font-sans text-center mb-[10px]">
-            Best Naukri Search here
+            Best Room Search Here
           </h1>
           <div className="flex w-full sm:w-4/5 lg:w-3/5 h-[50px] mx-auto mt-[30px] justify-center">
             <input

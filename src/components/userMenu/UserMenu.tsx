@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -6,7 +6,16 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { getUserInfo, clearUserInfo } from "@/reducers/userSlice";
 import Cookies from "js-cookie";
-
+import icons from "@/ultis/icons";
+const {
+  AccountCircleIcon,
+  KeyIcon,
+  FeedIcon,
+  HomeIcon,
+  ManageAccountsIcon,
+  HowToRegIcon,
+  LogoutIcon,
+} = icons;
 function UserMenu() {
   const user = useSelector(getUserInfo);
   const dispatch = useDispatch();
@@ -15,47 +24,70 @@ function UserMenu() {
     dispatch(clearUserInfo());
     Cookies.remove("token");
     Cookies.remove("refresh_token");
-    router.push('/')
+    router.push("/");
   };
   return (
-    <div className="flex flex-col gap-3 w-full">
-      <div className="border-b">
-        <p className="text-end">
-          <Link href="/updateinfo">Update Information</Link>
-        </p>
-      </div>
-      <div className="border-b">
-        <p className="text-end">
-          <Link href="/changepassword">Change Password</Link>
-        </p>
-      </div>
-      {user?.is_owner && (
-        <div className="border-b">
-          <p className="text-end">
-            <Link href="/housemanage">Manage House</Link>
-          </p>
-        </div>
-      )}
+    <div>
       <div>
-        {user?.is_superuser ? (
-          <div>
-            <div className="border-b">
-              <p className="text-end">
-                <Link href="/manageuser">Manage User</Link>
+        <ul>
+          <li className="my-4 py-3 px-2 rounded-md text-sm hover:bg-slate-100">
+            <Link href="/updateinfo">
+              <div className="flex gap-4">
+                <AccountCircleIcon /> <p>Update Infomation</p>
+              </div>
+            </Link>
+          </li>
+          <li className="my-4 py-3 px-2 rounded-md text-sm hover:bg-slate-100">
+            <Link href="/changepassword">
+              <div className="flex gap-4">
+                <KeyIcon /> <p>Change Password</p>
+              </div>
+            </Link>
+          </li>
+          <li className="my-4 py-3 px-2 rounded-md text-sm hover:bg-slate-100">
+            <Link href="/manage/post">
+              <div className="flex gap-4">
+                <FeedIcon />
+                <p>Manage Post</p>
+              </div>
+            </Link>
+          </li>
+          <li className="my-4 py-3 px-2 rounded-md text-sm hover:bg-slate-100">
+            <Link href="/manage/house">
+              <div className="flex gap-4">
+                <HomeIcon />
+                <p>Manage House</p>
+              </div>
+            </Link>
+          </li>
+          {user?.is_superuser && (
+            <li className="my-4 py-3 px-2 rounded-md text-sm hover:bg-slate-100">
+              <Link href="/manageuser">
+                <div className="flex gap-4">
+                  <ManageAccountsIcon /> <p>Manage User</p>
+                </div>
+              </Link>
+            </li>
+          )}
+          {user?.is_superuser && (
+            <li className="my-4 py-3 px-2 rounded-md text-sm hover:bg-slate-100">
+              <Link href="/verifyuser">
+                <div className="flex gap-4">
+                  <HowToRegIcon />
+                  <p>Verify User Account</p>
+                </div>
+              </Link>
+            </li>
+          )}
+          <li className="my-4 py-3 px-2 rounded-md text-sm hover:bg-slate-100">
+            <div className="flex gap-4 border-b cursor-pointer">
+              <LogoutIcon />
+              <p onClick={UserLogOut} className="">
+                Sign Out
               </p>
             </div>
-            <div className="border-b">
-              <p className="text-end">
-                <Link href="/verifyuser">Verify User Account</Link>
-              </p>
-            </div>
-          </div>
-        ) : (
-          <div></div>
-        )}
-      </div>
-      <div className="border-b cursor-pointer">
-        <p onClick={UserLogOut} className="text-end">Thoat</p>
+          </li>
+        </ul>
       </div>
     </div>
   );
