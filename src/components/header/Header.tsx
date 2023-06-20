@@ -42,8 +42,8 @@ export const Header: React.FC = () => {
     setIsOpenMenu(false);
   }
   return (
-    <div className="h-[70px] mx-8">
-      <div className="w-full h-full flex flex-row justify-between items-center bg-white">
+    <div className="h-[70px]">
+      <div className="w-full h-full px-8 flex flex-row justify-between items-center bg-orange-100">
         <div className="w-1/4">
           <Image
             src={logo}
@@ -203,7 +203,7 @@ export const Header: React.FC = () => {
                   </div>
                   {isOpenDropDown && (
                     <div
-                      className="inline-block absolute top-10 right-0 w-[300px] bg-white border px-1 py-1 rounded-md z-20"
+                      className="inline-block absolute top-10 right-0 w-[300px] border px-1 py-1 rounded-md z-20"
                       ref={menuRef}
                     >
                       <UserMenu />

@@ -1,15 +1,15 @@
-"use client"
+"use client";
 
 import React from "react";
 import { useState, useEffect } from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { DeleteOutlineOutlined } from "@mui/icons-material";
 import { EditOutlined } from "@mui/icons-material";
 import { SettingsOutlined } from "@mui/icons-material";
-import { Box, Modal, Typography } from "@mui/material";
+import { Button, Modal } from "@mui/material";
 import FormHouse from "@/components/formHouse/FormHouse";
-
+import { deleteHouse, getListofHouses } from "@/service";
 function HouseManage() {
   const router = useRouter();
   const [isOpen, setisOpen] = useState(false);
@@ -19,10 +19,16 @@ function HouseManage() {
 
   const handleClose = () => {
     setisOpen(false);
+    setHouseDetail(null);
   };
   const handleEditHouse = (data: any) => {
     setHouseDetail(data);
     settype("update");
+    setisOpen(true);
+  };
+  const handleCreateHouse = () => {
+    setHouseDetail(null);
+    settype("create");
     setisOpen(true);
   };
 
@@ -32,30 +38,30 @@ function HouseManage() {
   });
   const [totalRows, settotalRows] = useState(0);
 
-  // const handleDeleteHouse = async (id: number) => {
-  //   if(confirm("Are u sure?")){
-  //     try {
-  //       const response = await deleteHouse(id);
-  //       if(response){
-  //         try {
-  //           const response1 = await getListofHouses();
-  //           if (response1) {
-  //             setHouseListData(response1.data.results);
-  //             settotalRows(response1.data.count)
-  //           }
-  //         } catch (error) {
-  //           console.error(error);
-  //         }
-  //       }
-  //     } catch (er) {
-  //       console.error(er);
-  //     }
-  //   }
-  // };
-  // const redirectRoomManage = (id) => {
-  //   router.push(`/housemanage/${id}`);
-  // };
-  const columns : GridColDef[] = [
+  const handleDeleteHouse = async (id: number) => {
+    if (confirm("Are u sure?")) {
+      try {
+        const response = await deleteHouse(id);
+        if (response) {
+          try {
+            const response1 = await getListofHouses(paginationModel.page + 1);
+            if (response1) {
+              setHouseListData(response1.data.results);
+              settotalRows(response1.data.count);
+            }
+          } catch (error) {
+            console.error(error);
+          }
+        }
+      } catch (er) {
+        console.error(er);
+      }
+    }
+  };
+  const redirectRoomManage = (id: number) => {
+    router.push(`/manage/house/${id}`);
+  };
+  const columns: GridColDef[] = [
     { field: "id", headerName: "ID", width: 50 },
     {
       field: "status",
@@ -90,7 +96,7 @@ function HouseManage() {
           </button>
           <button
             className="px-3 py-1 border-2 border-black rounded-md bg-red-400"
-            // onClick={() => handleDeleteHouse(params.row.id)}
+            onClick={() => handleDeleteHouse(params.row.id)}
           >
             <DeleteOutlineOutlined />
           </button>
@@ -100,49 +106,59 @@ function HouseManage() {
     {
       field: "roommanage",
       headerName: "Room Manage",
-      width: 150,
-      renderCell: (params:any) => (
+      width: 200,
+      renderCell: (params: any) => (
         <div>
-          <p
-            className="text-center border-b cursor-pointer"
-            // onClick={() => {
-            //   redirectRoomManage(params.row.id);
-            // }}
+          <Button
+            variant="outlined"
+            color="info"
+            className="px-1 py-2 text-center cursor-pointer"
+            onClick={() => {
+              redirectRoomManage(params.row.id);
+            }}
           >
             Manage Room
-          </p>
+          </Button>
         </div>
       ),
     },
   ];
 
-  // useEffect(() => {
-  //   const getHouseList = async () => {
-  //     try {
-  //       const response = await getListofHouses(paginationModel.page + 1);
-  //       if (response) {
-  //         setHouseListData(response.data.results);
-  //         settotalRows(response.data.count)
-  //         // console.log(response.data.results)
-  //       }
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-  //   getHouseList();
-  // }, []);
+  useEffect(() => {
+    const getHouseList = async () => {
+      try {
+        const response = await getListofHouses(paginationModel.page + 1);
+        if (response) {
+          setHouseListData(response.data.results);
+          settotalRows(response.data.count);
+          // console.log(response.data.results)
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getHouseList();
+  }, [paginationModel.page]);
 
-  //   const [houseList, sethouseList] = useState([]);
   return (
     <div>
       <div>
         <Modal open={isOpen} onClose={handleClose}>
           <div>
-            {/* <HouseForm type={"update"} dataHouse={houseDetail} closeModal={handleClose} /> */}
+            <FormHouse
+              type={type}
+              data={houseDetail}
+              closeModal={handleClose}
+            />
           </div>
         </Modal>
       </div>
-      <div className="w-5/6 mt-10 mx-auto h-[400px]">
+      <div>
+        <Button onClick={handleCreateHouse} variant="contained" color="primary">
+          Create House
+        </Button>
+      </div>
+      <div className="w-4/5 lg:w-3/5 mt-10 mx-auto h-[400px]">
         <DataGrid
           rows={houseListData}
           columns={columns}

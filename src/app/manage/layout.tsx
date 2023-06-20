@@ -44,9 +44,11 @@ function ManageHouseLayout({
   const pathname = usePathname();
   return (
     <div className="h-screen">
-      <Header />
-      <div className="flex">
-        <div className="w-[200px] h-full border pl-4">
+      <div className="h-[10%]">
+        <Header />
+      </div>
+      <div className="flex h-[90%]">
+        <div className="w-[200px]  border pl-4">
           <ul className="">
             {manageLinks.map((item) => {
               const isActive = pathname.startsWith(item.href);
@@ -68,7 +70,7 @@ function ManageHouseLayout({
             })}
           </ul>
         </div>
-        <div>{children}</div>
+        <div className="w-full">{children}</div>
       </div>
     </div>
   );

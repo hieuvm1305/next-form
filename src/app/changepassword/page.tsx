@@ -1,9 +1,8 @@
+"use client"
 import React from 'react'
 
-function UpdatePassword() {
+export default function page() {
   return (
-    <div>UpdatePassword</div>
+    <div>page</div>
   )
 }
-
-export default UpdatePassword

@@ -1,11 +1,9 @@
 import React from 'react'
 
-export const RoomManage = () => {
+function RoomManage() {
   return (
-    <div>
-
-        <div>Content of the page</div>
-
-    </div>
+    <div>RoomManage</div>
   )
 }
+
+export default RoomManage

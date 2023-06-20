@@ -93,3 +93,4 @@ export interface Password {
     new_password: string,
     confirm_new_password: string,
 }
+
